@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllFundraisers, getFundraiserById } from '../controllers/fundraiserController';
+import { getAllFundraisers, getFundraiserById } from '../controllers/fundraiserController.js';
 
 const router = express.Router();
 

@@ -1,22 +1,26 @@
 import asyncHandler from 'express-async-handler';
 import Fundraiser from '../models/fundraiserModel.js';
+import ErrorResponse from '../utils/ErrorResponse.js';
 
 // @desc    Get all fundraisers
 // @route   GET /api/v1/fundraisers
 // @access  Public
 const getAllFundraisers = asyncHandler(async (req, res) => {
   const fundraisers = await Fundraiser.find({});
-
   res.send(fundraisers);
 });
 
 // @desc    Get fundraiser by ID
 // @route   GET /api/v1/fundraisers/:id
 // @access  Public
-const getFundraiserById = asyncHandler(async (req, res) => {
+const getFundraiserById = asyncHandler(async (req, res, next) => {
   const fundraiser = await Fundraiser.findById(req.params.id);
 
-  res.send(fundraiser);
+  if (fundraiser) {
+    res.send(fundraiser);
+  } else {
+    next(new ErrorResponse(`Fundraiser not found with the id of ${req.params.id}`, 404));
+  }
 });
 
 export {
