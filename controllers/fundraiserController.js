@@ -7,7 +7,7 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @access  Public
 const getAllFundraisers = asyncHandler(async (req, res) => {
   const fundraisers = await Fundraiser.find({});
-  res.send(fundraisers);
+  res.send({ success: true, data: fundraisers });
 });
 
 // @desc    Get fundraiser by ID
@@ -17,7 +17,7 @@ const getFundraiserById = asyncHandler(async (req, res, next) => {
   const fundraiser = await Fundraiser.findById(req.params.id);
 
   if (fundraiser) {
-    res.send(fundraiser);
+    res.send({ success: true, data: fundraiser });
   } else {
     next(new ErrorResponse(`Fundraiser not found with the id of ${req.params.id}`, 404));
   }
