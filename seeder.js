@@ -5,7 +5,7 @@ import User from './models/userModel.js';
 import Fundraiser from './models/fundraiserModel.js';
 import connectDB from './config/db.js';
 
-dotenv.config({ path: './backend/config/.env' });
+dotenv.config({ path: './config/.env' });
 
 connectDB();
 const OPTION_DELETE = '-d';
@@ -33,7 +33,7 @@ const importData = async () => {
       const { description } = fundraiser;
       const shortDescription = description.substring(
         0,
-        description.length / 2,
+        100,
       );
       return { ...fundraiser, shortDescription, organizer: adminUser };
     });

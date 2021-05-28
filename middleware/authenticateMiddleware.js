@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
+import jwt from 'jsonwebtoken';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
 const checkIfHeaderIsValid = (req) => req.headers.authorization && req.headers.authorization.startsWith('Bearer');
@@ -16,10 +16,8 @@ const decodeToken = (req) => {
 };
 
 const authenticate = asyncHandler(async (req, res, next) => {
-  let decodedToken = '';
-
   if (checkIfHeaderIsValid(req)) {
-    decodedToken = decodeToken(req);
+    const decodedToken = decodeToken(req);
     req.userId = decodedToken.id;
     next();
   } else {

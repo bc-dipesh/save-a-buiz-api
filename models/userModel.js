@@ -31,6 +31,15 @@ userSchema.methods.comparePassword = async function (passwordToCompare) {
   return passwordIsMatch;
 };
 
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt();
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
 const User = mongoose.model('User', userSchema);
 
 export default User;

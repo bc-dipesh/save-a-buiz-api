@@ -13,12 +13,36 @@ const authenticateUser = asyncHandler(async (req, res, next) => {
 
   if (user && isPasswordMatch) {
     const token = generateToken(user._id);
-    res.send({
+    res.status(200).json({
       success: true,
       data: token,
     });
   } else {
     next(new ErrorResponse('Invalid email or password', 401));
+  }
+});
+
+// @desc    Register user & get token
+// @route   POST /api/v1/users/register
+// @access  Public
+const registerUser = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user) {
+    next(new ErrorResponse('User already exists', 401));
+  } else {
+    const newUser = await User.create(req.body);
+
+    if (newUser) {
+      const token = generateToken(newUser._id);
+      res.status(201).json({
+        success: true,
+        data: token,
+      });
+    } else {
+      next(new ErrorResponse('Invalid user data', 400));
+    }
   }
 });
 
@@ -32,7 +56,7 @@ const getUserProfile = asyncHandler(async (req, res, next) => {
     const {
       _id, name, email, isAdmin,
     } = user;
-    res.send({
+    res.status(200).json({
       success: true,
       data: {
         _id, name, email, isAdmin,
@@ -43,4 +67,4 @@ const getUserProfile = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { authenticateUser, getUserProfile };
+export { authenticateUser, registerUser, getUserProfile };
