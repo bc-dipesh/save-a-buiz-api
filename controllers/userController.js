@@ -67,4 +67,36 @@ const getUserProfile = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { authenticateUser, registerUser, getUserProfile };
+// @desc    Update user profile
+// @route   PUT /api/v1/users/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.userId);
+
+  if (user) {
+    const { name, email, password } = req.body;
+    user.name = name || user.name;
+    user.email = email || user.email;
+    if (password) {
+      user.password = password;
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
+    });
+  } else {
+    next(new ErrorResponse('Not authorized', 401));
+  }
+});
+
+export {
+  authenticateUser, registerUser, getUserProfile, updateUserProfile,
+};
