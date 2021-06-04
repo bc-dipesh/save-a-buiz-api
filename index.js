@@ -6,6 +6,7 @@ import connectDB from './config/db.js';
 import errorHandler from './middleware/errorMiddleware.js';
 import fundraiserRoutes from './routes/fundraiserRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import newsLetterSubscriptionRoutes from './routes/newsLetterSubscriptionRoutes.js';
 
 dotenv.config({ path: './config/.env' });
 connectDB();
@@ -26,6 +27,7 @@ app.use(express.json());
 // mount routes
 app.use('/api/v1/fundraisers', fundraiserRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/subscribe-to-news-letter', newsLetterSubscriptionRoutes);
 
 // error handling middleware
 app.use(errorHandler);
