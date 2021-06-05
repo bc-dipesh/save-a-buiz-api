@@ -6,7 +6,13 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @route   GET /api/v1/fundraisers
 // @access  Public
 const getAllFundraisers = asyncHandler(async (req, res) => {
-  const fundraisers = await Fundraiser.find({});
+  const keyword = req.query.keyword ? {
+    title: {
+      $regex: req.query.keyword,
+      $options: 'i',
+    },
+  } : {};
+  const fundraisers = await Fundraiser.find({ ...keyword });
   res.status(200).json({ success: true, data: fundraisers });
 });
 
