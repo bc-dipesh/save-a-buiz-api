@@ -15,7 +15,9 @@ const authenticateUser = asyncHandler(async (req, res, next) => {
     const token = generateToken(user._id);
     res.status(200).json({
       success: true,
-      data: { name: user.name, email, token },
+      data: {
+        name: user.name, email, isAdmin: user.isAdmin, token,
+      },
     });
   } else {
     next(new ErrorResponse('Invalid email or password', 401));
