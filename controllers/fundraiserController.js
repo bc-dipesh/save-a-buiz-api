@@ -20,7 +20,7 @@ const getAllFundraisers = asyncHandler(async (req, res) => {
 // @route   GET /api/v1/fundraisers/:id
 // @access  Public
 const getFundraiserById = asyncHandler(async (req, res, next) => {
-  const fundraiser = await Fundraiser.findById(req.params.id);
+  const fundraiser = await Fundraiser.findById(req.params.id).populate('organizer', 'name');
 
   if (fundraiser) {
     res.status(200).json({ success: true, data: fundraiser });
