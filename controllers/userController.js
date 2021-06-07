@@ -122,7 +122,7 @@ const getUserById = asyncHandler(async (req, res, next) => {
   if (user) {
     const {
       _id, name, email, isAdmin,
-    } = req.user;
+    } = user;
     res.status(200).json({
       success: true,
       data: {
