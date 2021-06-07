@@ -50,12 +50,10 @@ const registerUser = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.userId);
-
-  if (user) {
+  if (req.user) {
     const {
       _id, name, email, isAdmin,
-    } = user;
+    } = req.user;
     res.status(200).json({
       success: true,
       data: {
@@ -71,7 +69,7 @@ const getUserProfile = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.userId);
+  const user = await User.findById(req.user.id);
 
   if (user) {
     const { name, email, password } = req.body;
@@ -97,6 +95,23 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc    Get all users
+// @route   GET /api/v1/users
+// @access  Private/Admin
+const getAllUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find({});
+  if (users) {
+    res.status(200).json({
+      success: true,
+      data: {
+        users,
+      },
+    });
+  } else {
+    next(new ErrorResponse('Not authorized', 401));
+  }
+});
+
 export {
-  authenticateUser, registerUser, getUserProfile, updateUserProfile,
+  authenticateUser, registerUser, getUserProfile, updateUserProfile, getAllUsers,
 };
