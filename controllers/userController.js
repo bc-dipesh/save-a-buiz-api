@@ -114,6 +114,51 @@ const getAllUsers = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc    Get user by ID
+// @route   GET /api/v1/users/:id
+// @access  Private/Admin
+const getUserById = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (user) {
+    res.status(200).json({
+      success: true,
+      data: {
+        user,
+      },
+    });
+  } else {
+    next(new ErrorResponse('User not found', 404));
+  }
+});
+
+// @desc    Update user
+// @route   PUT /api/v1/users/:id
+// @access  Private/Admin
+const updateUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    const { name, email, isAdmin } = req.body;
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.isAdmin = isAdmin;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
+    });
+  } else {
+    next(new ErrorResponse('User not found', 404));
+  }
+});
+
 // @desc    Delete user
 // @route   DELETE /api/v1/users/:id
 // @access  Private/Admin
@@ -133,5 +178,6 @@ const deleteUserById = asyncHandler(async (req, res, next) => {
 });
 
 export {
-  authenticateUser, registerUser, getUserProfile, updateUserProfile, getAllUsers, deleteUserById,
+  authenticateUser, registerUser, getUserProfile, updateUserProfile, getAllUsers, getUserById,
+  updateUser, deleteUserById,
 };
