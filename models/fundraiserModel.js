@@ -25,7 +25,7 @@ const fundraiserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    link: {
+    youTubeVideoLink: {
       type: String,
     },
     description: {
