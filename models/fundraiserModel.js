@@ -13,6 +13,10 @@ const commentSchema = mongoose.Schema({
 
 const fundraiserSchema = mongoose.Schema(
   {
+    location: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -20,6 +24,9 @@ const fundraiserSchema = mongoose.Schema(
     image: {
       type: String,
       required: true,
+    },
+    link: {
+      type: String,
     },
     description: {
       type: String,
@@ -31,7 +38,6 @@ const fundraiserSchema = mongoose.Schema(
     goal: {
       type: Number,
       required: true,
-      default: 0,
     },
     collected: {
       type: Number,
@@ -58,6 +64,15 @@ const fundraiserSchema = mongoose.Schema(
     timestamps: true,
   },
 );
+
+fundraiserSchema.pre('save', function (next) {
+  const shortDescription = this.description.substring(
+    0,
+    100,
+  );
+  this.shortDescription = shortDescription;
+  next();
+});
 
 const Fundraiser = mongoose.model('Fundraiser', fundraiserSchema);
 
