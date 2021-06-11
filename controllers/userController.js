@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import Fundraiser from '../models/fundraiserModel.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 import generateToken from '../utils/generateToken.js';
 
@@ -180,7 +181,24 @@ const deleteUserById = asyncHandler(async (req, res, next) => {
   }
 });
 
+// @desc    Get all fundraisers created by current user
+// @route   GET /api/v1/users/fundraisers
+// @access  Private
+const getAllUserFundraisers = asyncHandler(async (req, res, next) => {
+  const fundraisers = await Fundraiser.find({ organizer: { _id: req.user._id } });
+  if (fundraisers) {
+    res.status(200).json({
+      success: true,
+      data: {
+        fundraisers,
+      },
+    });
+  } else {
+    next(new ErrorResponse('Not authorized', 401));
+  }
+});
+
 export {
   authenticateUser, registerUser, getUserProfile, updateUserProfile, getAllUsers, getUserById,
-  updateUser, deleteUserById,
+  updateUser, deleteUserById, getAllUserFundraisers,
 };
