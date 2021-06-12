@@ -5,14 +5,8 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @desc    Subscribe to news letter
 // @route   POST /api/v1/subscribe-to-news-letter
 // @access Public
-const subscribeToNewsLetter = asyncHandler(async (req, res, next) => {
+const subscribeToNewsLetter = asyncHandler(async (req, res) => {
   const { email } = req.body;
-  const subscribedEmail = await SubscribeToNewsLetter.findOne({ email });
-
-  if (subscribedEmail) {
-    next(new ErrorResponse('Email already subscribed to newsletter', 400));
-  }
-
   const newEmailSubscription = await SubscribeToNewsLetter.create({ email });
 
   if (newEmailSubscription) {

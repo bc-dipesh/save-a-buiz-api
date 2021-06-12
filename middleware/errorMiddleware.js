@@ -1,14 +1,30 @@
-const errorHandler = (err, req, res, next) => {
-  let statusCode = err.statusCode || 500;
-  const errorMessage = err.message || 'Server error';
+import ErrorResponse from '../utils/ErrorResponse.js';
 
-  if (err.name === 'ValidationError') {
-    statusCode = 400;
+const errorHandler = (err, req, res, next) => {
+  let error = { ...err };
+  error.message = err.message;
+
+  // mongoose bad ObjectId
+  if (err.name === 'CastError') {
+    const message = `Resource not found with the id of ${err.value}`;
+    error = new ErrorResponse(message, 404);
   }
 
-  res.status(statusCode).json({
+  // mongoose duplicate key
+  if (err.code === 11000) {
+    const message = Object.keys(err.keyValue).map((key) => `Resource already exists with the field value of ${err.keyValue[key]}`);
+    error = new ErrorResponse(message, 400);
+  }
+
+  // mongoose validation error
+  if (err.name === 'ValidationError') {
+    const message = Object.values(err.errors).map((_error) => _error.message);
+    error = new ErrorResponse(message, 400);
+  }
+
+  res.status(error.statusCode || 500).json({
     success: false,
-    data: errorMessage,
+    data: error.message || 'Server Error',
   });
   next();
 };

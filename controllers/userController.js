@@ -28,25 +28,14 @@ const authenticateUser = asyncHandler(async (req, res, next) => {
 // @desc    Register user & get token
 // @route   POST /api/v1/users/register
 // @access  Public
-const registerUser = asyncHandler(async (req, res, next) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email });
+const registerUser = asyncHandler(async (req, res) => {
+  const newUser = await User.create(req.body);
 
-  if (user) {
-    next(new ErrorResponse('User already exists', 400));
-  } else {
-    const newUser = await User.create(req.body);
-
-    if (newUser) {
-      const token = generateToken(newUser._id);
-      res.status(201).json({
-        success: true,
-        data: { name: newUser.name, email, token },
-      });
-    } else {
-      next(new ErrorResponse('Invalid user data', 400));
-    }
-  }
+  const token = generateToken(newUser._id);
+  res.status(201).json({
+    success: true,
+    data: { name: newUser.name, email: newUser.email, token },
+  });
 });
 
 // @desc    Get user profile

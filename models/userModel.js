@@ -1,20 +1,28 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import validator from 'validator';
 
 const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, 'Please provide a name of the user'],
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true, 'Please provide a email'],
+      unique: [true, 'Email already taken, please provide a new email'],
+      validate: [validator.isEmail, 'Please provide a valid email'],
+    },
+    mobilePhoneNumber: {
+      type: String,
+      required: [true, 'Please provide a mobile phone number'],
+      unique: [true, 'Mobile phone number already taken, please provide a new number'],
+      validate: [validator.isMobilePhone, 'Please provide a valid mobile phone number'],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Please provide a password for the user'],
     },
     isAdmin: {
       type: Boolean,

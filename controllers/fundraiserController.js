@@ -5,14 +5,9 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @desc    Create fundraiser
 // @route   POST /api/v1/fundraisers
 // @access  Private
-const createFundraiser = asyncHandler(async (req, res, next) => {
+const createFundraiser = asyncHandler(async (req, res) => {
   const fundraiser = await Fundraiser.create({ ...req.body, organizer: req.user._id });
-
-  if (fundraiser) {
-    res.status(200).json({ success: true, data: fundraiser });
-  } else {
-    next(new ErrorResponse('Invalid form data', 400));
-  }
+  res.status(200).json({ success: true, data: fundraiser });
 });
 
 // @desc    Get all fundraisers
