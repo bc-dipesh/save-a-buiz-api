@@ -9,20 +9,22 @@ import generateToken from '../utils/generateToken.js';
 // @access  Public
 const authenticateUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  const isPasswordMatch = await user.comparePassword(password);
 
-  if (user && isPasswordMatch) {
-    const token = generateToken(user._id);
-    res.status(200).json({
-      success: true,
-      data: {
-        name: user.name, email, isAdmin: user.isAdmin, token,
-      },
-    });
-  } else {
-    next(new ErrorResponse('Invalid email or password', 401));
+  if (email || password) {
+    const user = await User.findOne({ email });
+    const isPasswordMatch = await user.comparePassword(password);
+
+    if (user && isPasswordMatch) {
+      const token = generateToken(user._id);
+      return res.status(200).json({
+        success: true,
+        data: {
+          name: user.name, email, isAdmin: user.isAdmin, token,
+        },
+      });
+    }
   }
+  return next(new ErrorResponse('Invalid email or password', 401));
 });
 
 // @desc    Register user & get token
@@ -32,7 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const newUser = await User.create(req.body);
 
   const token = generateToken(newUser._id);
-  res.status(201).json({
+  return res.status(201).json({
     success: true,
     data: { name: newUser.name, email: newUser.email, token },
   });
@@ -46,15 +48,14 @@ const getUserProfile = asyncHandler(async (req, res, next) => {
     const {
       _id, name, email, isAdmin,
     } = req.user;
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         _id, name, email, isAdmin,
       },
     });
-  } else {
-    next(new ErrorResponse('Not authorized', 401));
   }
+  return next(new ErrorResponse('Not authorized', 401));
 });
 
 // @desc    Update user profile
@@ -73,7 +74,7 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
 
     await user.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         _id: user._id,
@@ -82,9 +83,8 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
         isAdmin: user.isAdmin,
       },
     });
-  } else {
-    next(new ErrorResponse('Not authorized', 401));
   }
+  return next(new ErrorResponse('Not authorized', 401));
 });
 
 // @desc    Get all users
@@ -93,15 +93,14 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
 const getAllUsers = asyncHandler(async (req, res, next) => {
   const users = await User.find({});
   if (users) {
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         users,
       },
     });
-  } else {
-    next(new ErrorResponse('Not authorized', 401));
   }
+  return next(new ErrorResponse('Not authorized', 401));
 });
 
 // @desc    Get user by ID
@@ -113,15 +112,14 @@ const getUserById = asyncHandler(async (req, res, next) => {
     const {
       _id, name, email, isAdmin,
     } = user;
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         _id, name, email, isAdmin,
       },
     });
-  } else {
-    next(new ErrorResponse('User not found', 404));
   }
+  return next(new ErrorResponse('User not found', 404));
 });
 
 // @desc    Update user
@@ -138,7 +136,7 @@ const updateUser = asyncHandler(async (req, res, next) => {
 
     await user.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         _id: user._id,
@@ -147,9 +145,8 @@ const updateUser = asyncHandler(async (req, res, next) => {
         isAdmin: user.isAdmin,
       },
     });
-  } else {
-    next(new ErrorResponse('User not found', 404));
   }
+  return next(new ErrorResponse('User not found', 404));
 });
 
 // @desc    Delete user
@@ -159,15 +156,14 @@ const deleteUserById = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (user) {
     await user.remove();
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         message: 'User successfully deleted',
       },
     });
-  } else {
-    next(new ErrorResponse('User not found', 404));
   }
+  return next(new ErrorResponse('User not found', 404));
 });
 
 // @desc    Get all fundraisers created by current user
@@ -176,15 +172,14 @@ const deleteUserById = asyncHandler(async (req, res, next) => {
 const getAllUserFundraisers = asyncHandler(async (req, res, next) => {
   const fundraisers = await Fundraiser.find({ organizer: { _id: req.user._id } });
   if (fundraisers) {
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: {
         fundraisers,
       },
     });
-  } else {
-    next(new ErrorResponse('Not authorized', 401));
   }
+  return next(new ErrorResponse('Not authorized', 401));
 });
 
 export {

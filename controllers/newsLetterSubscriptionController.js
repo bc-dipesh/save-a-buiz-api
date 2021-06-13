@@ -10,7 +10,7 @@ const subscribeToNewsLetter = asyncHandler(async (req, res) => {
   const newEmailSubscription = await SubscribeToNewsLetter.create({ email });
 
   if (newEmailSubscription) {
-    res.status(200).json({ success: true, data: 'Email Successfully subscribed to newsletter' });
+    return res.status(200).json({ success: true, data: 'Email Successfully subscribed to newsletter' });
   }
 });
 
@@ -23,10 +23,9 @@ const unsubscribeFromNewsLetter = asyncHandler(async (req, res, next) => {
 
   if (subscribedEmail) {
     await SubscribeToNewsLetter.findByIdAndDelete(subscribedEmail._id);
-    res.status(200).json({ success: true, data: 'Email successfully unsubscribed from newsletter' });
-  } else {
-    next(new ErrorResponse('Email to unsubscribe not found', 400));
+    return res.status(200).json({ success: true, data: 'Email successfully unsubscribed from newsletter' });
   }
+  return next(new ErrorResponse('Email to unsubscribe not found', 400));
 });
 
 export { subscribeToNewsLetter, unsubscribeFromNewsLetter };

@@ -7,7 +7,7 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @access  Private
 const createFundraiser = asyncHandler(async (req, res) => {
   const fundraiser = await Fundraiser.create({ ...req.body, organizer: req.user._id });
-  res.status(200).json({ success: true, data: fundraiser });
+  return res.status(200).json({ success: true, data: fundraiser });
 });
 
 // @desc    Get all fundraisers
@@ -21,7 +21,7 @@ const getAllFundraisers = asyncHandler(async (req, res) => {
     },
   } : {};
   const fundraisers = await Fundraiser.find({ ...keyword }).populate('organizer', 'name -_id');
-  res.status(200).json({ success: true, data: fundraisers });
+  return res.status(200).json({ success: true, data: fundraisers });
 });
 
 // @desc    Get fundraiser by ID
@@ -31,10 +31,9 @@ const getFundraiserById = asyncHandler(async (req, res, next) => {
   const fundraiser = await Fundraiser.findById(req.params.id).populate('organizer', 'name -_id');
 
   if (fundraiser) {
-    res.status(200).json({ success: true, data: fundraiser });
-  } else {
-    next(new ErrorResponse(`Fundraiser not found with the id of ${req.params.id}`, 404));
+    return res.status(200).json({ success: true, data: fundraiser });
   }
+  return next(new ErrorResponse(`Fundraiser not found with the id of ${req.params.id}`, 404));
 });
 
 // @desc    Delete fundraiser by ID
@@ -45,10 +44,9 @@ const deleteFundraiserById = asyncHandler(async (req, res, next) => {
 
   if (fundraiser) {
     await Fundraiser.findByIdAndDelete(req.params.id);
-    res.status(200).json({ success: true, data: 'Fundraiser successfully deleted' });
-  } else {
-    next(new ErrorResponse(`Fundraiser not found with the id of ${req.params.id}`, 404));
+    return res.status(200).json({ success: true, data: 'Fundraiser successfully deleted' });
   }
+  return next(new ErrorResponse(`Fundraiser not found with the id of ${req.params.id}`, 404));
 });
 
 export {
