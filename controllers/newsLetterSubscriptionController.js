@@ -5,13 +5,14 @@ import ErrorResponse from '../utils/ErrorResponse.js';
 // @desc    Subscribe to news letter
 // @route   POST /api/v1/subscribe-to-news-letter
 // @access Public
-const subscribeToNewsLetter = asyncHandler(async (req, res) => {
+const subscribeToNewsLetter = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
   const newEmailSubscription = await SubscribeToNewsLetter.create({ email });
 
   if (newEmailSubscription) {
     return res.status(200).json({ success: true, data: 'Email Successfully subscribed to newsletter' });
   }
+  return next(new ErrorResponse('Unable to subscribe email to newsletter', 400));
 });
 
 // @desc    Unsubscribe email from news letter
