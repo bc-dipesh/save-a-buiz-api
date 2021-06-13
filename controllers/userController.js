@@ -9,9 +9,9 @@ import generateToken from '../utils/generateToken.js';
 // @access  Public
 const authenticateUser = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
+  const user = await User.findOne({ email });
 
-  if (email || password) {
-    const user = await User.findOne({ email });
+  if (user) {
     const isPasswordMatch = await user.comparePassword(password);
 
     if (user && isPasswordMatch) {
