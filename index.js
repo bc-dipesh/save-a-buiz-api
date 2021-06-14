@@ -12,6 +12,7 @@ import users from './routes/users.js';
 import fundraisers from './routes/fundraisers.js';
 import fileUploads from './routes/fileUploads.js';
 import newsLetterSubscriptions from './routes/newsLetterSubscriptions.js';
+import ErrorResponse from './utils/ErrorResponse.js';
 
 // load env vars
 dotenv.config({ path: './config/.env' });
@@ -43,6 +44,12 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/fundraisers', fundraisers);
 app.use('/api/v1/file-uploads', fileUploads);
 app.use('/api/v1/subscribe-to-news-letter', newsLetterSubscriptions);
+
+// 404 not found route
+app.use(async (req, res, next) => next(new ErrorResponse(
+  `Route ${req.url} not found. Please check and try again with a different route.`,
+  400,
+)));
 
 // error handling middleware
 app.use(errorHandler);
