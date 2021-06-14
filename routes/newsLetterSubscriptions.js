@@ -1,5 +1,5 @@
 import express from 'express';
-import { subscribeToNewsLetter, unsubscribeFromNewsLetter } from '../controllers/newsLetterSubscriptionController.js';
+import { subscribeToNewsLetter, unsubscribeFromNewsLetter } from '../controllers/newsLetterSubscriptions.js';
 
 const router = express.Router();
 

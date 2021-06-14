@@ -1,6 +1,6 @@
 import express from 'express';
-import uploadFundraiserImage from '../controllers/fileUploadController.js';
-import uploadImage from '../middleware/fileUploadMiddleware.js';
+import uploadFundraiserImage from '../controllers/fileUploads.js';
+import uploadImage from '../middleware/fileUpload.js';
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const commentSchema = mongoose.Schema({
+const CommentSchema = mongoose.Schema({
   name: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, 'Please provide the name of the commentator'],
@@ -12,7 +12,7 @@ const commentSchema = mongoose.Schema({
   },
 });
 
-const fundraiserSchema = mongoose.Schema(
+const FundraiserSchema = mongoose.Schema(
   {
     location: {
       type: String,
@@ -48,7 +48,7 @@ const fundraiserSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    comments: [commentSchema],
+    comments: [CommentSchema],
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, 'Please provide a organizer for the fundraiser'],
@@ -64,7 +64,7 @@ const fundraiserSchema = mongoose.Schema(
   },
 );
 
-fundraiserSchema.pre('save', function (next) {
+FundraiserSchema.pre('save', function (next) {
   const shortDescription = this.description.substring(
     0,
     100,
@@ -73,6 +73,6 @@ fundraiserSchema.pre('save', function (next) {
   next();
 });
 
-const Fundraiser = mongoose.model('Fundraiser', fundraiserSchema);
+const Fundraiser = mongoose.model('Fundraiser', FundraiserSchema);
 
 export default Fundraiser;

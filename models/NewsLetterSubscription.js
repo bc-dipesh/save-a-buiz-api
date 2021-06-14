@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 
-const subscribeToNewsLetterSchema = mongoose.Schema(
+const NewsLetterSubscriptionSchema = mongoose.Schema(
   {
     email: {
       type: String,
@@ -15,6 +15,6 @@ const subscribeToNewsLetterSchema = mongoose.Schema(
   },
 );
 
-const SubscribeToNewsLetter = mongoose.model('SubscribeToNewsLetter', subscribeToNewsLetterSchema);
+const SubscribeToNewsLetter = mongoose.model('SubscribeToNewsLetter', NewsLetterSubscriptionSchema);
 
 export default SubscribeToNewsLetter;

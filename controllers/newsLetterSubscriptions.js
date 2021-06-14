@@ -1,10 +1,12 @@
 import asyncHandler from 'express-async-handler';
-import SubscribeToNewsLetter from '../models/subscribeToNewsLetterModel.js';
+import SubscribeToNewsLetter from '../models/NewsLetterSubscription.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
-// @desc    Subscribe to news letter
-// @route   POST /api/v1/subscribe-to-news-letter
-// @access Public
+/**
+   * @desc    Subscribe to news letter
+   * @route   POST /api/v1/subscribe-to-news-letter
+   * @access  Public
+   */
 const subscribeToNewsLetter = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
   const newEmailSubscription = await SubscribeToNewsLetter.create({ email });
@@ -15,9 +17,11 @@ const subscribeToNewsLetter = asyncHandler(async (req, res, next) => {
   return next(new ErrorResponse('Unable to subscribe email to newsletter', 400));
 });
 
-// @desc    Unsubscribe email from news letter
-// @route   DELETE /api/v1/subscribe-to-news-letter
-// @access Public
+/**
+   * @desc    Unsubscribe email from news letter
+   * @route   DELETE /api/v1/subscribe-to-news-letter
+   * @access  Public
+   */
 const unsubscribeFromNewsLetter = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
   const subscribedEmail = await SubscribeToNewsLetter.findOne({ email });

@@ -6,19 +6,24 @@ const errorHandler = (err, req, res, next) => {
 
   // mongoose bad ObjectId
   if (err.name === 'CastError') {
-    const message = `Resource not found with the id of ${err.value}`;
+    const message = `Invalid ${err.path}: ${err.value}`;
+
     error = new ErrorResponse(message, 404);
   }
 
   // mongoose duplicate key
   if (err.code === 11000) {
-    const message = Object.keys(err.keyValue).map((key) => `Resource already exists with the field value of ${err.keyValue[key]}`);
+    const value = err.errmsg.match(/(["'])(?:(?=(\\?))\2.)*?\1/)[0];
+    const message = `Duplicate field value: ${value}. Please use another value and try again.`;
+
     error = new ErrorResponse(message, 400);
   }
 
   // mongoose validation error
   if (err.name === 'ValidationError') {
-    const message = Object.values(err.errors).map((_error) => _error.message);
+    const errors = Object.values(err.errors).map((el) => el.message);
+    const message = `Invalid input data. ${errors.join('. ')} and try again.`;
+
     error = new ErrorResponse(message, 400);
   }
 
