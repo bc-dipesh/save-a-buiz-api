@@ -37,6 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
     success: true,
     data: {
       token,
+      user,
       confirmEmailUrl,
     },
   });
@@ -304,7 +305,11 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
   // save
   user.save({ validateBeforeSave: false });
 
-  return res.status(200).json({
+  const redirectUrl = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/user/profile'
+    : 'https://save-a-buiz-api.herokuapp.com/';
+
+  return res.redirect(redirectUrl).json({
     success: true,
     data: {
       user,
