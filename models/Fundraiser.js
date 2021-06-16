@@ -28,6 +28,10 @@ const FundraiserSchema = mongoose.Schema(
     },
     youTubeVideoLink: {
       type: String,
+      required: [
+        true,
+        'Please provide a YouTube video link that describes the story for the fundraiser',
+      ],
     },
     description: {
       type: String,
@@ -61,14 +65,11 @@ const FundraiserSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 FundraiserSchema.pre('save', function (next) {
-  const shortDescription = this.description.substring(
-    0,
-    100,
-  );
+  const shortDescription = this.description.substring(0, 100);
   this.shortDescription = shortDescription;
   next();
 });

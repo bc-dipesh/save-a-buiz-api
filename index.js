@@ -46,10 +46,14 @@ app.use('/api/v1/file-uploads', fileUploads);
 app.use('/api/v1/subscribe-to-news-letter', newsLetterSubscriptions);
 
 // 404 not found route
-app.use(async (req, res, next) => next(new ErrorResponse(
-  `Route ${req.url} not found. Please check and try again with a different route.`,
-  400,
-)));
+app.use(async (req, res, next) =>
+  next(
+    new ErrorResponse(
+      `Route ${req.url} not found. Please check and try again with a different route.`,
+      400
+    )
+  )
+);
 
 // error handling middleware
 app.use(errorHandler);
@@ -58,7 +62,7 @@ const PORT = process.env.PORT || 5000;
 
 const server = app.listen(
   PORT,
-  console.log(`App running in ${process.env.NODE_ENV} mode on port ${PORT}`),
+  console.log(`App running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
 
 // handle unhandled promise rejections

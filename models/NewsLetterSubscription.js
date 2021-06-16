@@ -12,7 +12,7 @@ const NewsLetterSubscriptionSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const SubscribeToNewsLetter = mongoose.model('SubscribeToNewsLetter', NewsLetterSubscriptionSchema);

@@ -21,15 +21,8 @@ router.use('/:userId/fundraisers', fundraiserRouter);
 router.use(authenticate);
 router.use(isAdmin);
 
-router
-  .route('/')
-  .get(getAllUsers)
-  .post(createUser);
+router.route('/').get(getAllUsers).post(createUser);
 
-router
-  .route('/:userId')
-  .get(getUserById)
-  .put(updateUserById)
-  .delete(deleteUserById);
+router.route('/:userId').get(getUserById).put(updateUserById).delete(deleteUserById);
 
 export default router;

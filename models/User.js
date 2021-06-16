@@ -48,7 +48,7 @@ const UserSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 // encrypt password using bcrypt
@@ -80,10 +80,7 @@ UserSchema.methods.getResetPasswordToken = function () {
   const passwordResetToken = crypto.randomBytes(20).toString('hex');
 
   // hash token and set to resetPasswordToken field
-  this.resetPasswordToken = crypto
-    .createHash('sha256')
-    .update(passwordResetToken)
-    .digest('hex');
+  this.resetPasswordToken = crypto.createHash('sha256').update(passwordResetToken).digest('hex');
 
   // set token expire time
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
@@ -96,10 +93,7 @@ UserSchema.methods.generateEmailConfirmToken = function () {
   // generate token
   const emailConfirmationToken = crypto.randomBytes(20).toString('hex');
 
-  this.confirmEmailToken = crypto
-    .createHash('sha256')
-    .update(emailConfirmationToken)
-    .digest('hex');
+  this.confirmEmailToken = crypto.createHash('sha256').update(emailConfirmationToken).digest('hex');
 
   const confirmTokenExtend = crypto.randomBytes(100).toString('hex');
   const confirmTokenCombined = `${emailConfirmationToken}.${confirmTokenExtend}`;

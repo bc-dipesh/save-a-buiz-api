@@ -1,35 +1,38 @@
 {
-	"name": "save-a-buiz-api",
-	"version": "1.0.0",
-	"description": "Backend api for save-a-buiz-pwa",
-	"main": "index.js",
-	"type": "module",
-	"scripts": {
-		"start": "node index",
-		"dev": "nodemon index",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "Dipesh BC",
-	"license": "MIT",
-	"dependencies": {
-		"bcryptjs": "^2.4.3",
-		"cors": "^2.8.5",
-		"crypto": "^1.0.1",
-		"dotenv": "^10.0.0",
-		"express": "^4.17.1",
-		"express-async-handler": "^1.1.4",
-		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^5.12.11",
-		"morgan": "^1.10.0",
-		"multer": "^1.4.2",
-		"nodemailer": "^6.6.1",
-		"validator": "^13.6.0"
-	},
-	"devDependencies": {
-		"concurrently": "^6.2.0",
-		"eslint": "^7.27.0",
-		"eslint-config-airbnb-base": "^14.2.1",
-		"eslint-plugin-import": "^2.23.3",
-		"nodemon": "^2.0.7"
-	}
+  "name": "save-a-buiz-api",
+  "version": "1.0.0",
+  "description": "Backend api for save-a-buiz-pwa",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dipesh BC",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.11",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.6.1",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-prettier": "^3.4.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1"
+  }
 }

@@ -3,10 +3,10 @@ import User from '../models/User.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
 /**
-   * @desc    Get all users
-   * @route   GET /api/v1/users
-   * @access  Private/Admin
-   */
+ * @desc    Get all users
+ * @route   GET /api/v1/users
+ * @access  Private/Admin
+ */
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({}).select('-password');
   return res.status(200).json({
@@ -16,16 +16,18 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 /**
-   * @desc    Get user by ID
-   * @route   GET /api/v1/users/:userId
-   * @access  Private/Admin
-   */
+ * @desc    Get user by ID
+ * @route   GET /api/v1/users/:userId
+ * @access  Private/Admin
+ */
 const getUserById = asyncHandler(async (req, res, next) => {
   if (!req.params.userId) {
-    next(new ErrorResponse(
-      'userId parameter is empty. Please provide userId of the user to get their details.',
-      400,
-    ));
+    next(
+      new ErrorResponse(
+        'userId parameter is empty. Please provide userId of the user to get their details.',
+        400
+      )
+    );
   }
 
   const user = await User.findById(req.params.userId);
@@ -36,10 +38,10 @@ const getUserById = asyncHandler(async (req, res, next) => {
 });
 
 /**
-   * @desc    Create user
-   * @route   POST /api/v1/users
-   * @access  Private/Admin
-   */
+ * @desc    Create user
+ * @route   POST /api/v1/users
+ * @access  Private/Admin
+ */
 const createUser = asyncHandler(async (req, res) => {
   const user = await User.create(req.body);
 
@@ -50,16 +52,18 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 /**
-   * @desc    Update user
-   * @route   PUT /api/v1/users/:userId
-   * @access  Private/Admin
-   */
+ * @desc    Update user
+ * @route   PUT /api/v1/users/:userId
+ * @access  Private/Admin
+ */
 const updateUserById = asyncHandler(async (req, res, next) => {
   if (!req.params.userId) {
-    next(new ErrorResponse(
-      'userId parameter is empty. Please provide userId of the user to update their details.',
-      400,
-    ));
+    next(
+      new ErrorResponse(
+        'userId parameter is empty. Please provide userId of the user to update their details.',
+        400
+      )
+    );
   }
 
   const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
@@ -74,25 +78,29 @@ const updateUserById = asyncHandler(async (req, res, next) => {
 });
 
 /**
-   * @desc    Delete user
-   * @route   DELETE /api/v1/users/:userId
-   * @access  Private/Admin
-   */
+ * @desc    Delete user
+ * @route   DELETE /api/v1/users/:userId
+ * @access  Private/Admin
+ */
 const deleteUserById = asyncHandler(async (req, res, next) => {
   if (!req.params.userId) {
-    next(new ErrorResponse(
-      'userId parameter is empty. Please provide userId of the user to delete the user.',
-      400,
-    ));
+    next(
+      new ErrorResponse(
+        'userId parameter is empty. Please provide userId of the user to delete the user.',
+        400
+      )
+    );
   }
 
   const user = await User.findById(req.params.userId);
 
   if (!user) {
-    return next(new ErrorResponse(
-      `Unable to find user with the id of ${req.params.userId}. Please check the id and try again.`,
-      404,
-    ));
+    return next(
+      new ErrorResponse(
+        `Unable to find user with the id of ${req.params.userId}. Please check the id and try again.`,
+        404
+      )
+    );
   }
 
   await user.remove();
@@ -103,10 +111,4 @@ const deleteUserById = asyncHandler(async (req, res, next) => {
   });
 });
 
-export {
-  getAllUsers,
-  getUserById,
-  createUser,
-  updateUserById,
-  deleteUserById,
-};
+export { getAllUsers, getUserById, createUser, updateUserById, deleteUserById };
