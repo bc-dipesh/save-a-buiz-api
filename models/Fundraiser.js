@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-const CommentSchema = mongoose.Schema({
+const DonationSchema = mongoose.Schema({
   name: {
     type: mongoose.Schema.Types.ObjectId,
     required: [true, 'Please provide the name of the commentator'],
     ref: 'User',
   },
-  comment: {
+  message: {
     type: String,
     required: [true, 'Please provide a comment'],
   },
@@ -52,7 +52,7 @@ const FundraiserSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    comments: [CommentSchema],
+    donations: [DonationSchema],
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, 'Please provide a organizer for the fundraiser'],

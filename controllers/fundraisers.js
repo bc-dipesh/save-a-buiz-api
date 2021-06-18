@@ -19,15 +19,33 @@ const createFundraiser = asyncHandler(async (req, res) => {
  * @access  Public
  */
 const getAllFundraisers = asyncHandler(async (req, res, next) => {
+  const keyword = req.query.keyword
+    ? {
+        title: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+
+  // pagination logic
+  const pageSize = 1;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const count = await Fundraiser.countDocuments({ ...keyword });
+
   if (req.params.userId) {
-    const fundraisers = await Fundraiser.find({ organizer: { _id: req.params.userId } }).populate(
-      'organizer',
-      'name -_id'
-    );
+    const fundraisers = await Fundraiser.find({ organizer: { _id: req.params.userId } })
+      .populate('organizer', 'name -_id')
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+
     if (fundraisers) {
       return res.status(200).json({
         success: true,
         data: fundraisers,
+        pages: Math.ceil(count / pageSize),
+        page,
       });
     }
     return next(
@@ -38,16 +56,14 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const keyword = req.query.keyword
-    ? {
-        title: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
-    : {};
-  const fundraisers = await Fundraiser.find({ ...keyword }).populate('organizer', 'name -_id');
-  return res.status(200).json({ success: true, data: fundraisers });
+  const fundraisers = await Fundraiser.find({ ...keyword })
+    .populate('organizer', 'name -_id')
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  return res
+    .status(200)
+    .json({ success: true, data: fundraisers, pages: Math.ceil(count / pageSize), page });
 });
 
 /**
