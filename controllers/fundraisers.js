@@ -20,7 +20,10 @@ const createFundraiser = asyncHandler(async (req, res) => {
  */
 const getAllFundraisers = asyncHandler(async (req, res, next) => {
   if (req.params.userId) {
-    const fundraisers = await Fundraiser.find({ organizer: { _id: req.params.userId } });
+    const fundraisers = await Fundraiser.find({ organizer: { _id: req.params.userId } }).populate(
+      'organizer',
+      'name -_id'
+    );
     if (fundraisers) {
       return res.status(200).json({
         success: true,
