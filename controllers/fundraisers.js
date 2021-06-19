@@ -29,14 +29,14 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
     : {};
 
   // pagination logic
-  const pageSize = 9;
+  const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
 
   const count = await Fundraiser.countDocuments({ ...keyword });
 
   if (req.params.userId) {
     const fundraisers = await Fundraiser.find({ organizer: { _id: req.params.userId } })
-      .populate('organizer', 'name -_id')
+      .populate(['organizer', 'donations.donor'])
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 
@@ -57,7 +57,7 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
   }
 
   const fundraisers = await Fundraiser.find({ ...keyword })
-    .populate('organizer', 'name -_id')
+    .populate(['organizer', 'donations.donor'])
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
@@ -73,8 +73,8 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
  */
 const getTop3Fundraisers = asyncHandler(async (req, res) => {
   const fundraisers = await Fundraiser.find({})
-    .populate('organizer', 'name -_id')
-    .sort({ donations: -1 })
+    .populate(['organizer', 'donations.donor'])
+    .sort('donations')
     .limit(3);
 
   return res.status(200).json({ success: true, data: fundraisers });
@@ -86,10 +86,10 @@ const getTop3Fundraisers = asyncHandler(async (req, res) => {
  * @access  Public
  */
 const getFundraiserById = asyncHandler(async (req, res, next) => {
-  const fundraiser = await Fundraiser.findById(req.params.fundraiserId).populate(
+  const fundraiser = await Fundraiser.findById(req.params.fundraiserId).populate([
     'organizer',
-    'name -_id'
-  );
+    'donations.donor',
+  ]);
 
   if (fundraiser) {
     return res.status(200).json({ success: true, data: fundraiser });
