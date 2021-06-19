@@ -1,5 +1,5 @@
 import yup from 'yup';
-import { mobilePhoneNumberRegEx } from '../utils/regex.js';
+import { mobilePhoneNumberRegEx, passwordRegex } from '../utils/regex.js';
 
 /**
  * Schema to validate login request body.
@@ -21,7 +21,13 @@ const registerSchema = yup.object().shape({
   mobilePhoneNumber: yup
     .string()
     .matches(mobilePhoneNumberRegEx, 'Please provide a valid mobile phone number.'),
-  password: yup.string().required('Please provide a password.'),
+  password: yup
+    .string()
+    .required('Please provide a password')
+    .matches(
+      passwordRegex,
+      'Password must contain a minimum of 8 characters, one uppercase, one lowercase, one number and one special case character'
+    ),
 });
 
 /**
