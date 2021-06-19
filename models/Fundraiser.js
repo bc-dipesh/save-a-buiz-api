@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
 const DonationSchema = mongoose.Schema({
-  name: {
+  donor: {
     type: mongoose.Schema.Types.ObjectId,
-    required: [true, 'Please provide the name of the commentator'],
+    required: [true, 'Please provide a donor for the fundraiser.'],
     ref: 'User',
   },
   message: {
     type: String,
-    required: [true, 'Please provide a comment'],
+    required: [true, 'Please provide a message for the fundraiser.'],
   },
 });
 
@@ -16,49 +16,45 @@ const FundraiserSchema = mongoose.Schema(
   {
     location: {
       type: String,
-      required: [true, 'Please provide location for the fundraiser'],
+      required: [true, 'Please provide location for the fundraiser.'],
     },
     title: {
       type: String,
-      required: [true, 'Please provide a title for the fundraiser'],
+      required: [true, 'Please provide a title for the fundraiser.'],
     },
     image: {
       type: String,
-      required: [true, 'Please provide a image for the fundraiser'],
+      required: [true, 'Please provide a image for the fundraiser.'],
     },
     youTubeVideoLink: {
       type: String,
       required: [
         true,
-        'Please provide a YouTube video link that describes the story for the fundraiser',
+        'Please provide a YouTube video link that describes the story for the fundraiser.',
       ],
     },
     description: {
       type: String,
-      required: [true, 'Please provide a description for the fundraiser'],
+      required: [true, 'Please provide a description for the fundraiser.'],
     },
     shortDescription: {
       type: String,
     },
     goal: {
       type: Number,
-      required: [true, 'Please provide a goal amount for the fundraiser'],
+      required: [true, 'Please provide a goal amount for the fundraiser.'],
     },
     collected: {
-      type: Number,
-      default: 0,
-    },
-    donors: {
       type: Number,
       default: 0,
     },
     donations: [DonationSchema],
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
-      required: [true, 'Please provide a organizer for the fundraiser'],
+      required: [true, 'Please provide a organizer for the fundraiser.'],
       ref: 'User',
     },
-    isPaid: {
+    isGoalCompleted: {
       type: Boolean,
       default: false,
     },
