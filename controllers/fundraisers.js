@@ -29,7 +29,7 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
     : {};
 
   // pagination logic
-  const pageSize = 1;
+  const pageSize = 9;
   const page = Number(req.query.pageNumber) || 1;
 
   const count = await Fundraiser.countDocuments({ ...keyword });
@@ -64,6 +64,20 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
   return res
     .status(200)
     .json({ success: true, data: fundraisers, pages: Math.ceil(count / pageSize), page });
+});
+
+/**
+ * @desc    Get top 3 fundraisers
+ * @route   GET /api/v1/fundraisers/top-3
+ * @access  Public
+ */
+const getTop3Fundraisers = asyncHandler(async (req, res) => {
+  const fundraisers = await Fundraiser.find({})
+    .populate('organizer', 'name -_id')
+    .sort({ donations: -1 })
+    .limit(3);
+
+  return res.status(200).json({ success: true, data: fundraisers });
 });
 
 /**
@@ -108,4 +122,10 @@ const deleteFundraiserById = asyncHandler(async (req, res, next) => {
   );
 });
 
-export { createFundraiser, getAllFundraisers, getFundraiserById, deleteFundraiserById };
+export {
+  createFundraiser,
+  getAllFundraisers,
+  getTop3Fundraisers,
+  getFundraiserById,
+  deleteFundraiserById,
+};
