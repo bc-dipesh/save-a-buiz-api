@@ -51,16 +51,6 @@ const registerUser = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
-  // validate email & password
-  if (!email || !password) {
-    return next(
-      new ErrorResponse(
-        'Email and password cannot be empty. Please try again with a email and password',
-        400
-      )
-    );
-  }
-
   // check for user
   const user = await User.findOne({ email }).select('+password');
 
@@ -143,23 +133,24 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 const updatePassword = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id).select('+password');
 
-  if (!req.body.currentPassword || !req.body.newPassword) {
+  // check current password
+  if (!(await user.matchPassword(req.body.currentPassword))) {
     return next(
       new ErrorResponse(
-        'Current password and/or new password field is empty. Please provide both the passwords so we can verify and update your password.',
-        400
+        'Your current password did not match. Please check your password and try again.',
+        401
       )
     );
   }
 
-  // Check current password
-  if (!(await user.matchPassword(req.body.currentPassword))) {
-    return next(
-      new ErrorResponse(
-        'Your old password did not match. Please check your password and try again.',
-        401
-      )
-    );
+  // check if old and new password are same
+  // if same then return a 200 response to save
+  // unnecessary database query.
+  if (req.body.currentPassword === req.body.newPassword) {
+    return res.status(200).json({
+      success: true,
+      data: user,
+    });
   }
 
   user.password = req.body.newPassword;

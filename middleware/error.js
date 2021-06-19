@@ -1,5 +1,15 @@
 import ErrorResponse from '../utils/ErrorResponse.js';
 
+/**
+ * Custom middleware to handle errors and return
+ * meaningful error messages with error codes
+ * that match the type of error.
+ *
+ * @param {*} err The error object.
+ * @param {*} req The request object.
+ * @param {*} res The response object.
+ * @param {*} next Next middleware function.
+ */
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;

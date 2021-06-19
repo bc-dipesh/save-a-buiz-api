@@ -11,15 +11,17 @@ import {
 } from '../controllers/auth.js';
 
 import { authenticate } from '../middleware/auth.js';
+import { loginSchema, registerSchema, passwordUpdateSchema } from '../validationSchemas/auth.js';
+import validate from '../middleware/validate.js';
 
 const router = express.Router();
 
-router.post('/register', registerUser);
-router.post('/login', login);
+router.post('/register', validate(registerSchema), registerUser);
+router.post('/login', validate(loginSchema), login);
 router.get('/profile', authenticate, getUserProfile);
 router.get('/confirm-email/:emailConfirmationToken', confirmEmail);
 router.put('/profile', authenticate, updateUserProfile);
-router.put('/update-password', authenticate, updatePassword);
+router.put('/update-password', authenticate, validate(passwordUpdateSchema), updatePassword);
 router.post('/forgot-password', forgotPassword);
 router.put('/reset-password/:resetToken', resetPassword);
 
