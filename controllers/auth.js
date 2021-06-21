@@ -9,7 +9,7 @@ import sendEmail from '../utils/sendEmail.js';
  * @route   POST /api/v1/auth/register
  * @access  Public
  */
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = asyncHandler(async (req, res, next) => {
   const user = await User.create(req.body);
 
   // grab token and create email confirmation url
@@ -18,28 +18,47 @@ const registerUser = asyncHandler(async (req, res) => {
     'host'
   )}/api/v1/auth/confirm-email/${confirmEmailToken}`;
 
-  const message = `You are receiving this email because you need to confirm your email address. 
-  Please copy and paste this url in the address bar of your browser:\n\n${confirmEmailUrl}`;
-
-  // prevent temporary
   user.save({ validationBeforeSave: false });
 
-  await sendEmail({
-    email: user.email,
-    subject: 'Email confirmation token',
-    message,
-  });
+  // config for email
+  const subject = 'Confirm your account';
+  const { name } = user;
+  const intro = "Thanks for signing up for SaveABuiz. We're very excited to have you on board.";
+  const instructions = 'To get started using SaveABuiz, please confirm your account below:';
+  const buttonText = 'Confirm your account';
+  const buttonColor = '#22BC66';
+  const outro = "Need help, or have questions? Just reply to this email, we'd love to help.";
 
-  // get user authentication token
-  const token = user.getSignedJwtToken();
+  try {
+    await sendEmail({
+      email: user.email,
+      subject,
+      name,
+      intro,
+      instructions,
+      link: confirmEmailUrl,
+      text: buttonText,
+      color: buttonColor,
+      outro,
+    });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
 
-  res.status(201).json({
+    await user.save({ validateBeforeSave: false });
+
+    return next(
+      new ErrorResponse(
+        'Something went wrong. We were unable to send you password reset link. Please try again.',
+        500
+      )
+    );
+  }
+
+  return res.status(201).json({
     success: true,
-    data: {
-      token,
-      user,
-      confirmEmailUrl,
-    },
+    message: 'Account successfully registered. Please check your email for further instructions.',
   });
 });
 
@@ -195,7 +214,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
 
   // config for email
   const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/reset-password/${resetToken}`;
-  const subject = 'Password Reset request.';
+  const subject = 'Password Reset request';
   const { name } = user;
   const intro =
     'You have received this email because a password reset request for your account was received.';
@@ -277,7 +296,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 
   // config for email
   const redirectUrl = 'https://angry-lalande-da8a76.netlify.app/sign-in';
-  const subject = 'Password reset successful.';
+  const subject = 'Password reset successful';
   const { name } = user;
   const intro =
     'You have received this email because your password has successfully reset. This is your new password Password@123';
@@ -365,8 +384,8 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
 
   const redirectUrl =
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000/user/profile'
-      : 'https://save-a-buiz-api.herokuapp.com/';
+      ? 'http://localhost:3000/sign-in'
+      : 'https://save-a-buiz-api.herokuapp.com/sign-in';
 
   return res.redirect(redirectUrl).json({
     success: true,
