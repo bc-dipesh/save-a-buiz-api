@@ -44,7 +44,7 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
       return res.status(200).json({
         success: true,
         data: fundraisers,
-        pages: Math.ceil(count / pageSize),
+        pages: Math.ceil(fundraisers.length / pageSize),
         page,
       });
     }
