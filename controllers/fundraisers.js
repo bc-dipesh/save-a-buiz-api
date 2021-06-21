@@ -29,7 +29,7 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
     : {};
 
   // pagination logic
-  const pageSize = 5;
+  const pageSize = 4;
   const page = Number(req.query.pageNumber) || 1;
 
   const count = await Fundraiser.countDocuments({ ...keyword });

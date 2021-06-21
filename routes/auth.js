@@ -23,6 +23,6 @@ router.get('/confirm-email/:emailConfirmationToken', confirmEmail);
 router.put('/profile', authenticate, updateUserProfile);
 router.put('/update-password', authenticate, validate(passwordUpdateSchema), updatePassword);
 router.post('/forgot-password', forgotPassword);
-router.put('/reset-password/:resetToken', resetPassword);
+router.get('/reset-password/:resetToken', resetPassword);
 
 export default router;

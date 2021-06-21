@@ -193,17 +193,29 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  // Create reset url
+  // config for email
   const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/reset-password/${resetToken}`;
-
-  const message = `You are receiving this email because you (or someone else) has requested the reset of a password. 
-                  Please submit your new password to this url with a put request:\n\n${resetUrl}`;
+  const subject = 'Password Reset request.';
+  const { name } = user;
+  const intro =
+    'You have received this email because a password reset request for your account was received.';
+  const instructions = 'Click the button below to reset your password.';
+  const buttonText = 'Reset your password';
+  const buttonColor = '#DC4D2F';
+  const outro =
+    'If you did not request a password reset, no further action is required on your part.';
 
   try {
     await sendEmail({
       email: user.email,
-      subject: 'Password reset token',
-      message,
+      subject,
+      name,
+      intro,
+      instructions,
+      link: resetUrl,
+      text: buttonText,
+      color: buttonColor,
+      outro,
     });
 
     return res.status(200).json({
@@ -231,7 +243,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
 
 /**
  * @desc    Reset password
- * @route   PUT /api/v1/auth/reset-password/:resetToken
+ * @route   GET /api/v1/auth/reset-password/:resetToken
  * @access  Public
  */
 const resetPassword = asyncHandler(async (req, res, next) => {
@@ -255,18 +267,56 @@ const resetPassword = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Set new password
-  user.password = req.body.password;
+  // Set new default password and update it in the database
+  user.password = 'Password@123';
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
   await user.save();
 
+  // send the new password to the user email
+
+  // config for email
+  const redirectUrl = 'https://angry-lalande-da8a76.netlify.app/sign-in';
+  const subject = 'Password reset successful.';
+  const { name } = user;
+  const intro =
+    'You have received this email because your password has successfully reset. This is your new password Password@123';
+  const instructions = 'Click the button below to return to the sign-in page.';
+  const buttonText = 'Go to Sign In';
+  const buttonColor = '#22BC66';
+  const outro =
+    'Please use the provided password to sign in to your account and after that you can go to your profile to update your password.';
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject,
+      name,
+      intro,
+      instructions,
+      link: redirectUrl,
+      text: buttonText,
+      color: buttonColor,
+      outro,
+    });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(
+      new ErrorResponse(
+        'Something went wrong. We were unable to send you password reset link. Please try again.',
+        500
+      )
+    );
+  }
+
   return res.status(200).json({
     success: true,
-    data: {
-      user,
-      token: user.getSignedJwtToken(),
-    },
+    message: 'Password reset was successful. Please check your email for further instructions.',
   });
 });
 
