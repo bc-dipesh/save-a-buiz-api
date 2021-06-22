@@ -140,6 +140,12 @@ const updateFundraiserById = asyncHandler(async (req, res, next) => {
   const fundraiser = await Fundraiser.findById(req.params.fundraiserId);
 
   if (fundraiser) {
+    const { collected, goal } = fundraiser;
+
+    if (collected >= goal) {
+      req.body.isGoalCompleted = true;
+    }
+
     const updatedFundraiser = await Fundraiser.findByIdAndUpdate(
       req.params.fundraiserId,
       req.body,

@@ -12,6 +12,7 @@ import users from './routes/users.js';
 import fundraisers from './routes/fundraisers.js';
 import fileUploads from './routes/fileUploads.js';
 import newsLetterSubscriptions from './routes/newsLetterSubscriptions.js';
+import analytics from './routes/analytics.js';
 import ErrorResponse from './utils/ErrorResponse.js';
 
 // load env vars
@@ -44,6 +45,7 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/fundraisers', fundraisers);
 app.use('/api/v1/file-uploads', fileUploads);
 app.use('/api/v1/subscribe-to-news-letter', newsLetterSubscriptions);
+app.use('/api/v1/analytics', analytics);
 
 // 404 not found route
 app.use(async (req, res, next) =>
