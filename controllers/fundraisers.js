@@ -122,10 +122,40 @@ const deleteFundraiserById = asyncHandler(async (req, res, next) => {
   );
 });
 
+/**
+ * @desc    Update fundraiser by ID
+ * @route   PUT /api/v1/fundraisers/:fundraiserId
+ * @access  Private
+ */
+const updateFundraiserById = asyncHandler(async (req, res, next) => {
+  const fundraiser = await Fundraiser.findById(req.params.fundraiserId);
+
+  if (fundraiser) {
+    const updatedFundraiser = await Fundraiser.findByIdAndUpdate(
+      req.params.fundraiserId,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    ).populate('organizer');
+
+    return res.status(200).json({ success: true, data: updatedFundraiser });
+  }
+
+  return next(
+    new ErrorResponse(
+      `Fundraiser not found with the id of ${req.params.fundraiserId}. Please check the id and try again.`,
+      404
+    )
+  );
+});
+
 export {
   createFundraiser,
   getAllFundraisers,
   getTop3Fundraisers,
   getFundraiserById,
   deleteFundraiserById,
+  updateFundraiserById,
 };
