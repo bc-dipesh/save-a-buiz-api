@@ -56,6 +56,15 @@ const getAllFundraisers = asyncHandler(async (req, res, next) => {
     );
   }
 
+  if (!req.query.pageNumber) {
+    const fundraisers = await Fundraiser.find({ ...keyword }).populate([
+      'organizer',
+      'donations.donor',
+    ]);
+
+    return res.status(200).json({ success: true, data: fundraisers });
+  }
+
   const fundraisers = await Fundraiser.find({ ...keyword })
     .populate(['organizer', 'donations.donor'])
     .limit(pageSize)
