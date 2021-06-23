@@ -16,7 +16,10 @@ const destroyData = async () => {
     await Fundraiser.deleteMany();
 
     console.log('Data destroyed successfully');
-    process.exit();
+
+    if (process.argv[2] === OPTION_DELETE) {
+      process.exit();
+    }
   } catch (error) {
     console.log(error);
     process.exit(1);
@@ -25,6 +28,7 @@ const destroyData = async () => {
 
 const importData = async () => {
   try {
+    destroyData();
     await User.insertMany(users);
     await Fundraiser.insertMany(fundraisers);
 

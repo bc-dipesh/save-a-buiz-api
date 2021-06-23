@@ -2,6 +2,21 @@ import asyncHandler from 'express-async-handler';
 import Fundraiser from '../models/Fundraiser.js';
 import User from '../models/User.js';
 
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 /**
  * @desc    Get application analytics
  * @route   GET /api/v1/analytics
@@ -12,6 +27,7 @@ const gatherAnalytics = asyncHandler(async (req, res) => {
   const fundraisers = await Fundraiser.find({});
   const users = await User.find({});
 
+  // users and fundraiser
   const userRegisteredToday = users.filter(
     (user) => new Date(user.createdAt).getDate() === new Date().getDate()
   ).length;
@@ -20,59 +36,32 @@ const gatherAnalytics = asyncHandler(async (req, res) => {
     (fundraiser) => new Date(fundraiser.createdAt).getDate() === new Date().getDate()
   ).length;
 
-  // const donationsData = [
-  //   {
-  //     name: 'January',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'February',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'March',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'April',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'May',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'June',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'July',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'August',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'September',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'October',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'November',
-  //     donations: 0,
-  //   },
-  //   {
-  //     name: 'December',
-  //     donations: 0,
-  //   },
-  // ];
-
   const usersCount = users.length;
   const fundraisersCount = fundraisers.length;
+
+  // donations
+  const donations = fundraisers.map((fundraiser) => fundraiser.donations).flat(2);
+
+  const averageFundraiserDonations =
+    fundraisers
+      .map((fundraiser) => fundraiser.donations.length)
+      .reduce((accumulator, value) => accumulator + value, 0) / fundraisers.length;
+
+  const monthlyDonations = [];
+  for (let i = 0; i < 12; i += 1) {
+    let donationCount = 0;
+
+    donations.forEach((donation) => {
+      const month = new Date(donation.createdAt).getMonth();
+
+      if (month === i) {
+        donationCount += 1;
+      }
+    });
+
+    const month = months[i];
+    monthlyDonations.push({ month, donationCount });
+  }
 
   res.status(200).json({
     success: true,
@@ -82,6 +71,8 @@ const gatherAnalytics = asyncHandler(async (req, res) => {
       completedFundraiserCount,
       fundraiserCreatedToday,
       userRegisteredToday,
+      averageFundraiserDonations,
+      monthlyDonations,
     },
   });
 });

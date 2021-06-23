@@ -1,21 +1,20 @@
 import mongoose from 'mongoose';
 
-const DonationSchema = mongoose.Schema(
-  {
-    donor: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: [true, 'Please provide a donor for the fundraiser.'],
-      ref: 'User',
-    },
-    message: {
-      type: String,
-      required: [true, 'Please provide a message for the fundraiser.'],
-    },
+const DonationSchema = mongoose.Schema({
+  donor: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, 'Please provide a donor for the fundraiser.'],
+    ref: 'User',
   },
-  {
-    timestamps: true,
-  }
-);
+  message: {
+    type: String,
+    required: [true, 'Please provide a message for the fundraiser.'],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 const FundraiserSchema = mongoose.Schema(
   {
