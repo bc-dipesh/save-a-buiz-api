@@ -385,7 +385,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
   const redirectUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000/sign-in'
-      : 'https://save-a-buiz-api.herokuapp.com/sign-in';
+      : 'https://angry-lalande-da8a76.netlify.app/sign-in';
 
   return res.redirect(redirectUrl).json({
     success: true,
