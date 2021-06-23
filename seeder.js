@@ -1,9 +1,11 @@
 import dotenv from 'dotenv';
-import users from './_data/users.js';
-import fundraisers from './_data/fundraisers.js';
-import User from './models/User.js';
-import Fundraiser from './models/Fundraiser.js';
 import connectDB from './config/db.js';
+import Analytics from './models/Analytics.js';
+import Fundraiser from './models/Fundraiser.js';
+import User from './models/User.js';
+import analytics from './_data/analytics.js';
+import fundraisers from './_data/fundraisers.js';
+import users from './_data/users.js';
 
 dotenv.config({ path: './config/.env' });
 
@@ -14,6 +16,7 @@ const destroyData = async () => {
   try {
     await User.deleteMany();
     await Fundraiser.deleteMany();
+    await Analytics.deleteMany();
 
     console.log('Data destroyed successfully');
 
@@ -31,6 +34,7 @@ const importData = async () => {
     destroyData();
     await User.insertMany(users);
     await Fundraiser.insertMany(fundraisers);
+    await Analytics.insertMany(analytics);
 
     console.log('Data imported successfully');
     process.exit();

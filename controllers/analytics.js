@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Fundraiser from '../models/Fundraiser.js';
 import User from '../models/User.js';
+import Analytics from '../models/Analytics.js';
 
 const months = [
   'January',
@@ -63,6 +64,17 @@ const gatherAnalytics = asyncHandler(async (req, res) => {
     monthlyDonations.push({ month, donationCount });
   }
 
+  // monthly app visits
+  const analytics = await Analytics.find({});
+  const monthlyAppVisits = analytics.map((visit) => {
+    const monthName = months[visit.month];
+    const visitors = visit.count;
+    return {
+      month: monthName,
+      visitors,
+    };
+  });
+
   res.status(200).json({
     success: true,
     data: {
@@ -73,8 +85,26 @@ const gatherAnalytics = asyncHandler(async (req, res) => {
       userRegisteredToday,
       averageFundraiserDonations,
       monthlyDonations,
+      monthlyAppVisits,
     },
   });
 });
 
-export default gatherAnalytics;
+/**
+ * @desc    Set analytics for application visits
+ * @route   GET /api/v1/analytics/app-visits
+ * @access  Public
+ */
+const appVisitsAnalytics = asyncHandler(async (req, res) => {
+  const currentMonth = new Date().getMonth();
+  const monthlyAppVisit = await Analytics.findOne({ month: currentMonth });
+
+  // update count by 1
+  monthlyAppVisit.count += 1;
+  await monthlyAppVisit.save();
+
+  console.log(monthlyAppVisit);
+  return res.status(200).json({ success: true });
+});
+
+export { gatherAnalytics, appVisitsAnalytics };
