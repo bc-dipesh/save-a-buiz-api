@@ -1,11 +1,12 @@
 import express from 'express';
 import {
   createFundraiser,
-  getAllFundraisers,
-  getTop3Fundraisers,
-  getFundraiserById,
   deleteFundraiserById,
+  getAllFundraisers,
+  getFundraiserById,
+  getTop3Fundraisers,
   updateFundraiserById,
+  updateFundraiserDonations,
 } from '../controllers/fundraisers.js';
 import { authenticate } from '../middleware/auth.js';
 
@@ -19,5 +20,7 @@ router
   .get(getFundraiserById)
   .delete(authenticate, deleteFundraiserById)
   .put(authenticate, updateFundraiserById);
+
+router.route('/:fundraiserId/donations').put(authenticate, updateFundraiserDonations);
 
 export default router;

@@ -166,6 +166,38 @@ const updateFundraiserById = asyncHandler(async (req, res, next) => {
   );
 });
 
+/**
+ * @desc    Update fundraiser donations
+ * @route   PUT /api/v1/fundraisers/:fundraiserId/donations
+ * @access  Private
+ */
+const updateFundraiserDonations = asyncHandler(async (req, res, next) => {
+  const fundraiser = await Fundraiser.findById(req.params.fundraiserId);
+
+  if (fundraiser) {
+    fundraiser.donations.push({
+      donor: req.user._id,
+      refId: req.body.refId,
+      amount: req.body.amt,
+    });
+
+    await fundraiser.save();
+
+    const updatedFundraiser = await Fundraiser.findById(req.params.fundraiserId).populate(
+      'organizer'
+    );
+
+    return res.status(200).json({ success: true, data: updatedFundraiser });
+  }
+
+  return next(
+    new ErrorResponse(
+      `Fundraiser not found with the id of ${req.params.fundraiserId}. Please check the id and try again.`,
+      404
+    )
+  );
+});
+
 export {
   createFundraiser,
   getAllFundraisers,
@@ -173,4 +205,5 @@ export {
   getFundraiserById,
   deleteFundraiserById,
   updateFundraiserById,
+  updateFundraiserDonations,
 };

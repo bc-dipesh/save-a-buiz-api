@@ -9,6 +9,7 @@ const DonationSchema = mongoose.Schema({
   refId: {
     type: String,
     required: true,
+    unique: [true, 'You have already donated. Thank you'],
   },
   amount: {
     type: Number,
