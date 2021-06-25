@@ -9,10 +9,6 @@ const DonationSchema = mongoose.Schema({
   refId: {
     type: String,
   },
-  message: {
-    type: String,
-    required: [true, 'Please provide a message for the fundraiser.'],
-  },
   createdAt: {
     type: Date,
     default: Date.now,
