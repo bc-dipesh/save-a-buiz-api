@@ -9,36 +9,36 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 3000,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'XYZAIC',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'XYZAPC',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'XYZAOC',
         amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: 'XYZABC',
+        refId: 'XYZAFC',
         amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: 'XYZABC',
+        refId: 'XYZARC',
         amount: 500,
       },
       {
         donor: '60cdf1ff74578f2a06d288a4',
-        refId: 'XYZABC',
+        refId: 'XYZAWC',
         amount: 500,
       },
     ],
@@ -54,41 +54,41 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 3500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'XYZABS',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'XYZABL',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'XYZABH',
         amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: 'XYZABC',
+        refId: 'XYZABF',
         amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: 'XYZABC',
+        refId: 'XYZABW',
         amount: 500,
       },
       {
         donor: '60cdf1ff74578f2a06d288a4',
-        refId: 'XYZABC',
+        refId: 'XYZABX',
         amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: 'XYZABC',
+        refId: 'XYZABZ',
         amount: 500,
       },
     ],
@@ -104,41 +104,41 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 3500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'XYZATOE',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'XYZATOF',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'XYZATOG',
         amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: 'XYZABC',
+        refId: 'XYZATOH',
         amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: 'XYZABC',
+        refId: 'XYZATOS',
         amount: 500,
       },
       {
         donor: '60cdf1ff74578f2a06d288a4',
-        refId: 'XYZABC',
+        refId: 'XYZATOW',
         amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: 'XYZABC',
+        refId: 'XYZATOA',
         amount: 500,
       },
     ],
@@ -154,31 +154,31 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 2500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'XEZABC',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'XFZABC',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'XGZABC',
         amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: 'XYZABC',
+        refId: 'XHZABC',
         amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: 'XYZABC',
+        refId: 'XIZABC',
         amount: 500,
       },
     ],
@@ -194,31 +194,31 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 2500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'XYZACD',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'XYZACE',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'XYZACF',
         amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: 'XYZABC',
+        refId: 'XYZACG',
         amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: 'XYZABC',
+        refId: 'XYZACH',
         amount: 500,
       },
     ],
@@ -234,31 +234,31 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 2500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'POLDA',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'POLDB',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'POLDC',
         amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: 'XYZABC',
+        refId: 'POLDX',
         amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: 'XYZABC',
+        refId: 'POLDZ',
         amount: 500,
       },
     ],
@@ -274,31 +274,31 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 2500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'ABC',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'ABCD',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'ABCDE',
         amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: 'XYZABC',
+        refId: 'AQWES',
         amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: 'XYZABC',
+        refId: 'ASAQ',
         amount: 500,
       },
     ],
@@ -314,31 +314,31 @@ const fundraisers = [
     shortDescription:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis convallis sem. Vivamus et ma',
     goal: 100000,
-    collected: 10000,
+    collected: 2500,
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: 'XYZABC',
+        refId: 'POIW',
         amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: 'XYZABC',
+        refId: 'DSFD',
         amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: 'XYZABC',
+        refId: 'POQIW',
         amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: 'XYZABC',
+        refId: 'BNMV',
         amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: 'XYZABC',
+        refId: 'IUIO',
         amount: 500,
       },
     ],

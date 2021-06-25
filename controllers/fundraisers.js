@@ -181,6 +181,8 @@ const updateFundraiserDonations = asyncHandler(async (req, res, next) => {
       amount: req.body.amt,
     });
 
+    fundraiser.collected += Number(req.body.amt);
+
     await fundraiser.save();
 
     const updatedFundraiser = await Fundraiser.findById(req.params.fundraiserId).populate(

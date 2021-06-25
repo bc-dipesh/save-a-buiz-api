@@ -53,11 +53,11 @@ const FundraiserSchema = mongoose.Schema(
       type: Number,
       required: [true, 'Please provide a goal amount for the fundraiser.'],
     },
+    donations: [DonationSchema],
     collected: {
       type: Number,
       default: 0,
     },
-    donations: [DonationSchema],
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, 'Please provide a organizer for the fundraiser.'],

@@ -15,7 +15,7 @@ const OPTION_DELETE = '-d';
 
 const destroyData = async () => {
   try {
-    // await User.deleteMany();
+    await User.deleteMany();
     await Fundraiser.deleteMany();
     // await Analytics.deleteMany();
 
@@ -33,7 +33,7 @@ const destroyData = async () => {
 const importData = async () => {
   try {
     destroyData();
-    // await User.insertMany(users);
+    await User.insertMany(users);
     await Fundraiser.insertMany(fundraisers);
     // await Analytics.insertMany(analytics);
 
