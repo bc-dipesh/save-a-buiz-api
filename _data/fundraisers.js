@@ -13,27 +13,33 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1ff74578f2a06d288a4',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf09bb500ee3c8cb227b2',
@@ -52,31 +58,38 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1ff74578f2a06d288a4',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf09bb500ee3c8cb227b2',
@@ -95,31 +108,38 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1ff74578f2a06d288a4',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf09bb500ee3c8cb227b2',
@@ -138,23 +158,28 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf09bb500ee3c8cb227b2',
@@ -173,23 +198,28 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf350151640ae06130f16',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf3292d87ca732529e2d0',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf09bb500ee3c8cb227b2',
@@ -208,23 +238,28 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf0da189d8c79bd887cd0',
@@ -243,23 +278,28 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf130c2c06cfb55ff3dc4',
@@ -278,23 +318,28 @@ const fundraisers = [
     donations: [
       {
         donor: '60cdf3b0822e6f08e163a5a7',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf38bd1901f925e065a80',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf36ad609288759cad706',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf1bedd0d5d6027db552b',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
       {
         donor: '60cdf195b4304a31d6668783',
-        refId: '',
+        refId: 'XYZABC',
+        amount: 500,
       },
     ],
     organizer: '60cdf15d98d95e01977565b7',

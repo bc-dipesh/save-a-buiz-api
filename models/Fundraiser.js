@@ -8,6 +8,11 @@ const DonationSchema = mongoose.Schema({
   },
   refId: {
     type: String,
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
   },
   createdAt: {
     type: Date,
