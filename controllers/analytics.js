@@ -103,7 +103,6 @@ const appVisitsAnalytics = asyncHandler(async (req, res) => {
   monthlyAppVisit.count += 1;
   await monthlyAppVisit.save();
 
-  console.log(monthlyAppVisit);
   return res.status(200).json({ success: true });
 });
 

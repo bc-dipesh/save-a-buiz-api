@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import Analytics from './models/Analytics.js';
@@ -14,9 +15,9 @@ const OPTION_DELETE = '-d';
 
 const destroyData = async () => {
   try {
-    await User.deleteMany();
+    // await User.deleteMany();
     await Fundraiser.deleteMany();
-    await Analytics.deleteMany();
+    // await Analytics.deleteMany();
 
     console.log('Data destroyed successfully');
 
@@ -32,9 +33,9 @@ const destroyData = async () => {
 const importData = async () => {
   try {
     destroyData();
-    await User.insertMany(users);
+    // await User.insertMany(users);
     await Fundraiser.insertMany(fundraisers);
-    await Analytics.insertMany(analytics);
+    // await Analytics.insertMany(analytics);
 
     console.log('Data imported successfully');
     process.exit();

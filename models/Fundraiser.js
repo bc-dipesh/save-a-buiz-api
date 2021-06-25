@@ -6,6 +6,9 @@ const DonationSchema = mongoose.Schema({
     required: [true, 'Please provide a donor for the fundraiser.'],
     ref: 'User',
   },
+  refId: {
+    type: String,
+  },
   message: {
     type: String,
     required: [true, 'Please provide a message for the fundraiser.'],
