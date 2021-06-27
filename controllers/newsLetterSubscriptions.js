@@ -31,16 +31,32 @@ const subscribeToNewsLetter = asyncHandler(async (req, res, next) => {
 });
 
 /**
+ * @desc    Update subscriber email
+ * @route   PUT /api/v1/subscribe-to-news-letter/:id
+ * @access  Public
+ */
+const updateSubscriberEmail = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+  const subscriber = await SubscribeToNewsLetter.findByIdAndUpdate(req.params.id, {
+    email,
+  });
+
+  if (subscriber) {
+    return res.status(200).json({ success: true, data: 'Email Successfully updated.' });
+  }
+  return next(new ErrorResponse('Unable to find the email to update.', 400));
+});
+
+/**
  * @desc    Unsubscribe email from news letter
- * @route   DELETE /api/v1/subscribe-to-news-letter
+ * @route   DELETE /api/v1/subscribe-to-news-letter/:id
  * @access  Public
  */
 const unsubscribeFromNewsLetter = asyncHandler(async (req, res, next) => {
-  const { email } = req.body;
-  const subscribedEmail = await SubscribeToNewsLetter.findOne({ email });
+  const subscribedEmail = await SubscribeToNewsLetter.findById(req.params.id);
 
   if (subscribedEmail) {
-    await SubscribeToNewsLetter.findByIdAndDelete(subscribedEmail._id);
+    await SubscribeToNewsLetter.findByIdAndDelete(req.params.id);
     return res
       .status(200)
       .json({ success: true, data: 'Email successfully unsubscribed from newsletter' });
@@ -48,4 +64,9 @@ const unsubscribeFromNewsLetter = asyncHandler(async (req, res, next) => {
   return next(new ErrorResponse('Email to unsubscribe not found', 400));
 });
 
-export { getNewsLetterSubscribers, subscribeToNewsLetter, unsubscribeFromNewsLetter };
+export {
+  getNewsLetterSubscribers,
+  subscribeToNewsLetter,
+  updateSubscriberEmail,
+  unsubscribeFromNewsLetter,
+};
