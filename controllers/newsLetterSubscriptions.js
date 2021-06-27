@@ -3,6 +3,17 @@ import SubscribeToNewsLetter from '../models/NewsLetterSubscription.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
 /**
+ * @desc    Get news letter subscribers
+ * @route   GET /api/v1/subscribe-to-news-letter
+ * @access  Public
+ */
+const getNewsLetterSubscribers = asyncHandler(async (req, res) => {
+  const subscribers = await SubscribeToNewsLetter.find({});
+
+  return res.status(200).json({ success: true, data: subscribers });
+});
+
+/**
  * @desc    Subscribe to news letter
  * @route   POST /api/v1/subscribe-to-news-letter
  * @access  Public
@@ -37,4 +48,4 @@ const unsubscribeFromNewsLetter = asyncHandler(async (req, res, next) => {
   return next(new ErrorResponse('Email to unsubscribe not found', 400));
 });
 
-export { subscribeToNewsLetter, unsubscribeFromNewsLetter };
+export { getNewsLetterSubscribers, subscribeToNewsLetter, unsubscribeFromNewsLetter };
