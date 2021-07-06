@@ -295,7 +295,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   // send the new password to the user email
 
   // config for email
-  const redirectUrl = 'https://angry-lalande-da8a76.netlify.app/sign-in';
+  const redirectUrl = 'https://saveabuiz.me/sign-in';
   const subject = 'Password reset successful';
   const { name } = user;
   const intro =
@@ -385,7 +385,7 @@ const confirmEmail = asyncHandler(async (req, res, next) => {
   const redirectUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000/sign-in'
-      : 'https://angry-lalande-da8a76.netlify.app/sign-in';
+      : 'https://saveabuiz.me/sign-in';
 
   return res.redirect(redirectUrl).json({
     success: true,

@@ -17,7 +17,7 @@ const destroyData = async () => {
   try {
     await User.deleteMany();
     await Fundraiser.deleteMany();
-    // await Analytics.deleteMany();
+    await Analytics.deleteMany();
 
     console.log('Data destroyed successfully');
 
@@ -35,7 +35,7 @@ const importData = async () => {
     destroyData();
     await User.insertMany(users);
     await Fundraiser.insertMany(fundraisers);
-    // await Analytics.insertMany(analytics);
+    await Analytics.insertMany(analytics);
 
     console.log('Data imported successfully');
     process.exit();

@@ -26,7 +26,7 @@ const sendEmail = async ({
     product: {
       // this will appear in header and footer of email
       name: 'SaveABuiz',
-      link: 'https://angry-lalande-da8a76.netlify.app/',
+      link: 'https://saveabuiz.me/',
     },
   });
 
