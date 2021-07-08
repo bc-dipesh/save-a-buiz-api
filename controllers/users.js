@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/User.js';
+import Fundraiser from '../models/Fundraiser.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 
 /**
@@ -102,6 +103,12 @@ const deleteUserById = asyncHandler(async (req, res, next) => {
       )
     );
   }
+
+  // cascade delete fundraiser created by the user
+  const fundraisers = await Fundraiser.find({ organizer: user._id });
+
+  // eslint-disable-next-line no-return-await
+  fundraisers.forEach(async (fundraiser) => await fundraiser.remove());
 
   await user.remove();
 
